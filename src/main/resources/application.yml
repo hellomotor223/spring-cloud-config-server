@@ -1,0 +1,32 @@
+server:
+  port: 7010
+eureka:
+  client:
+    registryFetchIntervalSeconds: 5
+    service-url:
+      #开发环境
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    preferIpAddress: true   #配置服务地址为IP+port（默认为hostname）
+#    instance-id: ${spring.cloud.client.ipAddress}:${server.port}  #配置注册列表显示名为IP+port
+    lease-renewal-interval-in-seconds: 3      # 服务续约间隔时间
+    lease-expiration-duration-in-seconds: 7  # 服务续约到期时间
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+spring:
+  application:
+      name: spring-cloud-config-server
+  cloud:
+    config:
+      server:
+        default-application-name: config-server
+        git:
+          # 配置git仓库地址
+          uri: https://github.com/q873759727/spring-cloud-config.git
+          # 配置仓库路径
+          search-paths: h2h,service-admin
+          # 访问git仓库的用户名
+#          username: zhangjb
+          # 访问git仓库的用户密码 如果Git仓库为公开仓库，可以不填写用户名和密码，如果是私有仓库需要填写
+#          password: ********
+        # 配置仓库的分支
+        default-label: master
